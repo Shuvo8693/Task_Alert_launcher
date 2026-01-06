@@ -7,11 +7,18 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/launchText"
+        android:id="@+id/statusText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Launched!"
+        android:text="@string/statusText"
         android:textSize="24sp"
         android:textStyle="bold"/>
+
+    <Button
+        android:id="@+id/toggleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:text="@string/toggleButton"/>
+
 
 </LinearLayout>
