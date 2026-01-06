@@ -3,6 +3,8 @@ package com.example.my_task_alert
 // MainActivity.kt
 
 import android.annotation.SuppressLint
+import android.app.ActivityManager
+import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
@@ -53,10 +55,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun isServiceRunning(): Boolean {
-        // Simple check - you can implement a more robust check
+        val manager = getSystemService(ACTIVITY_SERVICE) as ActivityManager
+        @Suppress("DEPRECATION")
+        for (service in manager.getRunningServices(Int.MAX_VALUE)) {
+            if (ScreenUnlockService::class.java.name == service.service.className) {
+                return true
+            }
+        }
         return false
     }
-
     private fun updateStatus() {
         statusText.text = if (isServiceRunning()) {
             "Service is running"
