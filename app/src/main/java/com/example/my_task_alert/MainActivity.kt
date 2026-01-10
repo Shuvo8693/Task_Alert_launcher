@@ -2,13 +2,11 @@ package com.example.my_task_alert
 
 // MainActivity.kt
 
-import android.annotation.SuppressLint
 import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
+import android.os.Build
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.provider.Settings
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.Button
@@ -23,6 +21,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        supportActionBar?.title = " TASK "
 
         statusText = findViewById(R.id.statusText)
         toggleButton = findViewById(R.id.toggleButton)
@@ -49,13 +49,17 @@ class MainActivity : AppCompatActivity() {
         if (isServiceRunning()) {
             stopService(intent)
         } else {
-            startService(intent)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                startForegroundService(intent)
+            } else {
+                startService(intent)
+            }
         }
         updateStatus()
     }
 
     private fun isServiceRunning(): Boolean {
-        val manager = getSystemService(ACTIVITY_SERVICE) as ActivityManager
+        val manager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         @Suppress("DEPRECATION")
         for (service in manager.getRunningServices(Int.MAX_VALUE)) {
             if (ScreenUnlockService::class.java.name == service.service.className) {
@@ -64,6 +68,7 @@ class MainActivity : AppCompatActivity() {
         }
         return false
     }
+
     private fun updateStatus() {
         statusText.text = if (isServiceRunning()) {
             "Service is running"

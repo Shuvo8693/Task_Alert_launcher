@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">my_task_alert</string>
+    <string name="app_name">Shuvo@Task</string>
     <string name="statusText">statusText</string>
     <string name="launched">Launched!</string>
     <string name="toggleButton">toggleButton</string>
