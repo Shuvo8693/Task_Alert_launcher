@@ -37,6 +37,8 @@ class ScreenUnlockService : Service() {
             addAction(Intent.ACTION_USER_PRESENT)
             addAction(Intent.ACTION_SCREEN_ON)
         }
+        // Android system → Broadcasts unlock event → Filter checks it →
+        //Matches? → Sends to screenUnlockReceiver → onReceive() runs
         registerReceiver(screenUnlockReceiver, filter)
     }
 

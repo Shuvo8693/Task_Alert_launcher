@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        supportActionBar?.title = " TASK "
+        supportActionBar?.title = "TASK"
 
         statusText = findViewById(R.id.statusText)
         toggleButton = findViewById(R.id.toggleButton)
